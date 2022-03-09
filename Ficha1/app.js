@@ -60,5 +60,61 @@ function monthName(number){
 //monthName(12)
 
 // linha 7
+function operator(number1, number2, operating){
+    if (operating == "+") {
+        console.log (number1 + number2)
+    }
+    else if (operating == "-") {
+        console.log (number1 - number2)
+    }
+    else if (operating == "*") {
+        console.log (number1 * number2)
+    }
+    else if (operating == "/") {
+        console.log (number1 / number2)
+    }
+    else if (operating == "^") {
+        console.log (number1 ** number2)
+    }
 
+}
 
+//operator(10, 2, "+")
+
+// linha 8
+function multiplesOf(multiple, limit){
+    var result = 0;
+    while(result < limit){
+        result += multiple;
+        console.log(result);
+    }
+}
+
+//multiplesOf(5, 20)
+
+// linha 9
+function sum(){
+    var soma = 0 
+    for (var i = 0; i <= 100; i++){
+        soma += i;
+    }
+    console.log (soma);
+}
+
+//sum()
+
+// linha 10
+//function 
+
+// linha 11
+function min(array){
+    var minV = array[0];
+    for (var i = 1; i < array.length; i++) {
+        if(array[i] < minV){
+            minV = array[i];
+        }
+    }
+    return minV;
+}
+
+var array = [7, 9, 11, 2, 3];
