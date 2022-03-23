@@ -250,6 +250,69 @@ function worstGrade(students){
     console.log("Worst Student - Number: " + worstStudent + ", Grade: " + min) 
 }
 
+function averageGrade(students){ 
+    var average = 0;
+    var aveGrade = 0;
+    var ave1 = 0;
+    var ave2 = 0;
+    for (let i = 0; i < students.length; i++) {
+        average += students[i].grade;
+        aveGrade = average / students.length;
+        if (aveGrade <= students[i].grade){
+            ave1 = students[i].grade;
+            ave2 = students[i].number;
+        }
+    }
+     console.log("Number: " + ave2 + " - Grade: " + ave1 + ", The score closest to the average: " + aveGrade)
+}
+
+function negativeGrade(students){
+    var neg = 0;
+    for (let i = 0; i < students.length; i++) {
+        if(students[i].grade < 9.5){
+            neg++;
+        }
+        else{}
+    }
+     console.log("The number of negative grades: " + neg)
+}
+
+function positiveGrade(students){
+    var positive = 0;
+    for (let i = 0; i < students.length; i++) {
+        if(students[i].grade > 9.5){
+            positive++;
+        }
+        else{}
+    }
+     console.log("The number of positive grades: " + positive)
+}
+function main(students, option){
+    switch (option) {
+        case 1:
+            listStudents(students);
+            break;
+        case 2:
+            bestGrade(students);
+            break;
+        case 3:
+            worstGrade(students);
+            break;
+        case 4:
+            averageGrade(students);
+            break;
+        case 5:
+            negativeGrade(students);
+            break;
+        case 6:
+            positiveGrade(students);
+            break;    
+        default:
+            break;
+    }
+}
+main(students, 6);
+
 //case 4
 function averageGrade(students){ 
     var average = 0;
