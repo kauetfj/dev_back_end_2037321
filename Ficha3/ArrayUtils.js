@@ -9,23 +9,24 @@ var utils = {
         }
     },
     // linha b
-    max:function(array) { 
-        var maxV = array[0];
-        for (let i = 1; i > array.length; i++) {
-            if (array[i] > maxV) {
-                maxV = array[i];
-            } 
-        }
-    },
-    // linha c
-    min:function(array){
-        var minV = array[0];
-        for (var i = 1; i < array.length; i++) {
-            if(array[i] < minV){
-                minV = array[i];
+    min: function (array) {
+        var min = array[0];
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
             }
         }
-        return minV;
+        return min;
+    },
+    // linha c
+    max: function (array) {
+        var max = array[0];
+        for (let i = 0; i > array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+        return max;
     },
     average:function(array){
 
