@@ -61,9 +61,9 @@ var value = [5];
 var index1 = [3];
 var index2 = [0];
 
-console.log(arrayUtils.swap(array, index1, index2));
+//console.log(arrayUtils.swap(array, index1, index2));
 //console.log(arrayUtils.indexOf(array, value));
 //console.log(arrayUtils.reverse(array));
 //console.log(arrayUtils.isSameLength(a1,a2));
-//console.log(arrayUtils.subArray(array, 1, -1));
+console.log(arrayUtils.subArray(array, 1, -1));
 //console.log(arrayUtils.isEmpty(array));

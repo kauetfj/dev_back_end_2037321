@@ -53,10 +53,11 @@ var utils = {
 
     // linha f **
     subArray:function(array, startIndex, endIndex){
-        for (let i = 0; i < array.length; i++) {
-            if (i) {
-            }
-        }
+        var array1 = [];
+        for (let i = startIndex; i <= endIndex; i++) {
+            array1.push(array[i]);
+        }   
+        return array1;
     },
 
     // linha g
@@ -66,16 +67,11 @@ var utils = {
 
     // linha h **
     reverse:function(array){
-        for (let i = array.length; i > 0; i--) {
+        var r = [];
+        for (let i = array.length - 1; i >= 0; i--) {
+            r.push(array[i]);
         }
-
-        /*var left = null;
-        var right = null;
-        for (left = 0, right = array.length - 1; left < right; left += 1, right -= 1) {
-            array[left] = array[right];
-            array[right] = array[left];
-        }
-        return array*/
+        return r;
     },
 
     //linha i 
