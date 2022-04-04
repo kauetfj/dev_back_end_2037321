@@ -83,10 +83,25 @@ var utils = {
     },
 
     // linha j
-    contains:function(array, value){    
+    contains:function(array, value){
+        for (let i = 0; i < array.length; i++){
+            if (value == array[i]){
+               return true ;
+            } 
+        } 
+        return false;
+        
+        // professor
+        //return this.indexOf(array, value) != -1;
+    },
+
+    // linha k
+    concatenate:function(a1, a2){
+        for (let i = 0; i< a1.length; i++){
+            a2.push(a1[i])
+        }
+        return a2
     }
 }   
 
 module.exports = utils;
-
-
