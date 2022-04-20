@@ -18,7 +18,8 @@ function(){
 //     array[i]();
 // }
 
-
-
-
-
+array.forEach((element, index, array) => {
+    element();
+    console.log(index);
+    console.log(array.length);
+});
