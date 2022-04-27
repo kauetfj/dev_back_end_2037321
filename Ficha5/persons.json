@@ -1,27 +1,27 @@
 {
     "person1" : {
     "id": 1,
-    "First Name": "Pedro",
-    "Last Name": "Lopes",
-    "Gender": "Male",
-    "Age": "25",
-    "Profession": "teacher"
+    "firstname": "Pedro",
+    "lastname": "Lopes",
+    "gender": "Male",
+    "age": "25",
+    "profession": "teacher"
     },
     "person2" : {
         "id": 2,
-        "First Name": "André",
-        "Last Name": "Faria",
-        "Gender": "Male",
-        "Age": "35",
-        "Profession": "librarian"
+        "firstname": "André",
+        "lastname": "Faria",
+        "gender": "Male",
+        "age": "35",
+        "profession": "librarian"
     },
     "person3" : {
         "id": 3,
-        "First Name": "Ana",
-        "Last Name": "Barros",
-        "Gender": "Female",
-        "Age": "76",
-        "Profession": "clerk"
+        "firstname": "Ana",
+        "lastname": "Barros",
+        "gender": "Female",
+        "age": "76",
+        "profession": "clerk"
     }
 
 }
