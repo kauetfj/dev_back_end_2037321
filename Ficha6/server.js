@@ -68,6 +68,7 @@ function readFile(fileName) {
 
 // 5-
 app.get("/user/:name", (req, res) => {
+    log(req, res);
     var name = req.params.name;
     name = name.replace("<h1>Hello</h1>" + name);
 
@@ -80,23 +81,42 @@ app.get("/user/:name", (req, res) => {
 
 
 // 6-
-function log(req, res) {
+function log(req, res){
     var method = req.method;
-    var path = req.route.path
+    var path = req.route.path;
     var date = new Date();
-    
-    var str = "METHOD: " + method + ", PATH: " + path + ", DATE: " + date.toDateString();
+
+    var str = "METHOD: " + method + ", PATH: " + path + ", DATE: " + date.toDateString() + "\n";
+    fs.appendFileSync('./log.txt', str);
 }
 
-app.get("/user/:name", (req, res) => {
+// 7-
+app.get('/listar', function log(req, res) {
+    var readLogTxt = fs.readFileSync('./log.txt', 'utf-8');
+
+    res.end(readLogTxt)
+});
+
+
+// 8-
+app.get('/download', function log(req, res) {
+    res.download('log.txt');
+});
+
+
+// 9-
+app.get('/clear', function log(req, res) {
     log(req, res);
-    var name = req.params.name;
-    name = name.replace("<h1>Hello</h1>" + name);
+    var file = './log.txt';
+    var deletar = fs.unlinkSync(file);
+    var msg = " O ficheiro foi apagado.";
 
     res.writeHead(200, {
-        'Content-Length': Buffer.byteLength(name),
-        'Content.Type': 'text/html'
+        'Content-Length': Buffer.byteLength(msg),
+        'Content.Type': 'text/plain'
     });
-    res.end(name);
+    res.end(msg, deletar);
 });
+
+// 10-
 
