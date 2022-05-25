@@ -63,10 +63,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-var dbConnection = mysql.createConnection({
+var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'password',
+    password: '',
     database: 'ficha7'
 });
 
@@ -86,13 +86,10 @@ var dbConnection = mysql.createConnection({
  *              schema:
  *                $ref: '#/definitions/Person'
  */
-app.get('/person', (request, response) => {
-    log(req,res);
-    var body = 'Hello World!';
-    res.writeHead(200,{
-        'Content-Length': Buffer.byteLength(body),
-        'Content-Type': 'text/plain'});
-    res.end(body);
+ app.get('/person', function (req, res) {
+    connection.query('SELECT * FROM ficha7.persons', function (err, results, fields) {
+        res.send(results);
+    })
 });
 
 /**
@@ -116,13 +113,13 @@ app.get('/person', (request, response) => {
  *          200:
  *              description: Successfully created
  */
-app.post('/person', (request, response) => {
-    log(req,res);
-    var body = "<h1>My First Heading</h1>";
-    res.writeHead(200,{
-        'Content-Length': Buffer.byteLength(body),
-        'Content-Type': 'text/html'});
-    res.end(body);
+
+
+ app.post('/person', function (req, res) {
+    var details = req.body;
+    connection.query("INSERT persons set ?", [details], function (err, rows, fields) {
+        res.send("Inserted " + rows.insertId)
+    })
 });
 
 /**
@@ -145,13 +142,13 @@ app.post('/person', (request, response) => {
  *          200:
  *              description: Successfully deleted
  */
-app.delete('/person', (request, response) => {
-    log(req,res);
-    var body = readFile('./index.html');
-    res.writeHead(200,{
-        'Content-Length': Buffer.byteLength(body),
-        'Content-Type': 'text/html'});
-    res.end(body);
+
+
+ app.delete('/person', (req, res) => {
+    var id = req.body.id;
+    connection.query("DELETE FROM ficha7.persons WHERE id = ?", [id], function (err, rows, fields) {
+        res.send("Deleted: " + rows.affectedRows);
+    });
 });
 
 /**
@@ -174,17 +171,13 @@ app.delete('/person', (request, response) => {
  *          200:
  *              description: Successfully deleted
  */
-app.delete('/person/:id', (request, response) => {
-    log(req,res);
-    var date = new Date();
 
-    var body = readFile('./index.html');
-    body = body.replace('First', date.toDateString());
 
-    res.writeHead(200,{
-        'Content-Length': Buffer.byteLength(body),
-        'Content-Type': 'text/html'});
-    res.end(body);
+app.delete('/person/:id', (req, res) => {
+    var id = req.params.id;
+    connection.query("DELETE FROM ficha7.persons WHERE id = ?", [id], function (err, rows, fields) {
+        res.send("Deleted: " + rows.affectedRows);
+    });
 });
 
 
@@ -210,8 +203,11 @@ app.delete('/person/:id', (request, response) => {
  *              schema:
  *                $ref: '#/definitions/Person'
  */
-app.get('/person/:id', (request, response) => {
-   
+ app.get('/person/:id', function (req, res) {
+    var id = req.params.id;
+    connection.query("SELECT * FROM ficha7.persons WHERE id = ?", [id], function (err, rows, fields) {
+        res.send(rows)
+    })
 });
 
 /**
@@ -241,8 +237,14 @@ app.get('/person/:id', (request, response) => {
  *              schema:
  *                $ref: '#/definitions/Person'
  */
-app.get('/person/:age/:profession', (request, response) => {
-   
+
+
+ app.get('/person/:age/:profession', function (req, res) {
+    var age = req.params.age;
+    var profession = req.params.profession;
+    connection.query("SELECT * FROM ficha7.persons WHERE age = ? AND profession = ?", [age, profession], function (err, rows, fields) {
+        res.send(rows)
+    })
 });
 
 
@@ -271,8 +273,13 @@ app.get('/person/:age/:profession', (request, response) => {
  *          200:
  *              description: Successfully created
  */
-app.put('/person/:id', (request, response) => {
-   
+
+
+ app.put('/person/:id', function (req, res) {
+    var details = req.body;
+    connection.query("UPDATE persons SET ?", [details], function (err, rows, fields) {
+        res.send(rows)
+    });
 });
 
 
