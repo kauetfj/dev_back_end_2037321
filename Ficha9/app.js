@@ -1,7 +1,7 @@
 // importar o express
 //const { request, response, query } = require('express');
 const express = require('express');
-const { Sequelize, Model, Datatypes} = require("sequelize")
+const { Sequelize, Model, Datatypes } = require("sequelize")
 
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('./swagger.json');
@@ -56,12 +56,12 @@ const Person = sequelize.define('person', {
 sequelize.sync({ force: false })
     .then(() => {
         console.log('Database & tables created!');
-        })
-        .then(function () {
-            return Person.findAll();
-        })
-        .then(function (person) {
-            console.log(person);
+    })
+    .then(function () {
+        return Person.findAll();
+    })
+    .then(function (person) {
+        console.log(person);
     });
 
 // 4-d)
@@ -78,33 +78,101 @@ sequelize.sync({ force: false })
 //     console.log(person);
 // });
 
-// 5-a)
+// 5- a) & e)
 
 app.get('/person', function (req, res) {
-    Person.findAll()
-        .then(person => {
-            res.send(person)
-        });
+
+    var id = req.query.id;
+    if (id == undefined) {
+        Person.findAll()
+            .then(person => {
+                res.send(person)
+            });
+    }
+
+    else {
+        Person.findByPk(id)
+            .then(person => {
+
+                if (person == undefined) {
+                    res.status(404).send("Cannot find ID");
+                }
+                else
+                    res.send(person)
+            })
+    }
 });
 
 // b)
 app.post('/person', function (req, res) {
-    Person.create({ firstname: 'Diogo', lastname: 'Alexandre', age: '19' })
-    .then(diogo => {
-        console.log("Diogo's auto-generated ID", diogo.id);
-    })
+    Person.create(req.body)
+        .then(person => {
+            res.send("ID Auto-generated: " + person.id);
+        })
 });
 
 // c)
 app.delete('/person', (req, res) => {
-    Person.destroy({
-        where: {
-            id = req.body.id
-        }
-    })
-    .then(() => {
-        console.log("Done");
-    })
+    var id = req.body.id;
+    if (isNaN(id)) {
+        res.status(400).send("Invalid ID supplied");
+    }
+    else {
+        Person.destroy({
+            where: {
+                id: id
+            }
+        })
+            .then(affectedRows => {
+                if (affectedRows == 0) {
+                    res.status(404).send("Cannot find ID");
+                }
+                else {
+                    res.send("ID Deleted: " + affectedRows);
+                }
+            })
+    }
 });
 
 // d)
+app.delete('/person/:id', (req, res) => {
+    var id = req.params.id;
+    if (isNaN(id)) {
+        res.status(400).send("Invalid ID supplied");
+    }
+    else {
+        Person.destroy({
+            where: {
+                id: id
+            }
+        })
+            .then(affectedRows => {
+                if (affectedRows == 0) {
+                    res.status(404).send("Cannot find ID");
+                }
+                else {
+                    res.send("ID Deleted: " + affectedRows);
+                }
+            })
+    }
+});
+
+
+// f)
+app.get('/person/:id/:profession/:age', (req, res) => {
+    Person.findAll({
+        where: {
+            id: req.params.id,
+            profession: req.params.profession,
+            age: req.params.age
+        }
+    })
+    .then(result => {
+        if (result == 0) {
+            res.send("Cannot find ID with profession");
+        }
+        else{
+            res.send(result);
+        }
+    });
+})
