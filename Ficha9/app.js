@@ -1,7 +1,8 @@
 // importar o express
 //const { request, response, query } = require('express');
 const express = require('express');
-const { Sequelize, Model, Datatypes } = require("sequelize")
+const { Sequelize, Model, Datatypes } = require("sequelize");
+const { UPSERT } = require('sequelize/types/query-types');
 
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('./swagger.json');
@@ -159,20 +160,43 @@ app.delete('/person/:id', (req, res) => {
 
 
 // f)
-app.get('/person/:id/:profession/:age', (req, res) => {
+app.get('/person/:profession/:age', (req, res) => {
     Person.findAll({
         where: {
-            id: req.params.id,
             profession: req.params.profession,
             age: req.params.age
         }
     })
     .then(result => {
         if (result == 0) {
-            res.send("Cannot find ID with profession");
+            res.send("Cannot find Age or Profession");
         }
         else{
             res.send(result);
         }
     });
-})
+});
+
+// g) **
+app.put('/person/:id', (req, res) => {
+    Person.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(result => {
+        if (result == 0) {
+            res.send("Cannot find ID");
+        }
+        else{
+            Person.findAll({
+                where: {
+                    id: req.params.id 
+                }
+            })
+            .then(result => {
+                res.send(result);
+            });
+        }
+    });
+});
