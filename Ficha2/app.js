@@ -1,3 +1,33 @@
+// linha 1
+function IMC(peso, altura){
+    imc=peso/((altura)**2);
+    if(imc<18.5){
+        console.log("Abaixo do peso");
+    }
+    else if (imc>=18.5 && imc<25){
+        console.log("No peso normal");
+    }
+    else if (imc>=25 && imc<30){
+        console.log("Acima do peso");
+    }
+    else{
+        console.log("Obeso");
+    }
+}
+
+// linha 2
+function reverse(str) {
+    var splittedStr = str.split(" ");
+    var reversedStr = "";
+    for (let j = 0; j < splittedStr.length; j++) {
+       var word = splittedStr[j]
+       for (var i = word.length - 1; i >=0; i--) {
+        reversedStr+= word[i];
+        }
+    }  
+    return reversedStr;
+}
+
 // linha 3
 var str = "ola mundo";
 var count = countVogals(str);
