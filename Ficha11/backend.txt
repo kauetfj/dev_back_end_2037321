@@ -1,0 +1,4 @@
+Base de dados azure - BackEnd
+usuario: kauet_web_backend
+senha: #Klm031914
+
